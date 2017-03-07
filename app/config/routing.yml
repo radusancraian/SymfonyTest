@@ -1,3 +1,7 @@
+aplications_domains:
+    resource: "@AplicationsDomainsBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
