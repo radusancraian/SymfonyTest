@@ -2,7 +2,6 @@
 
 namespace Aplications\DomainsBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -13,15 +12,16 @@ use JMS\Serializer\Annotation as JMS;
 class Book extends AbstractProduct
 {
     /**
+     * @JMS\Type("integer")
      * @MongoDB\Integer
      */
     protected $price;
 
     /**
-     * @JMS\Type("int")
+     * @JMS\Type("integer")
      * @MongoDB\Integer
      */
-    protected $nrPages;
+    protected $numberPages;
 
     /**
      * @JMS\Type("string")
@@ -31,90 +31,8 @@ class Book extends AbstractProduct
 
 
     /**
-     * Set price
-     *
-     * @param integer $price
-     * @return $this
+     * @MongoDB\ReferenceOne(targetDocument="Aplications\DomainsBundle\Document\BookDetails\Author", cascade={"persist"})
+     * @JMS\Type("Aplications\DomainsBundle\Document\BookDetails\Author")
      */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return integer $price
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * Set nrPages
-     *
-     * @param integer $nrPages
-     * @return $this
-     */
-    public function setNrPages($nrPages)
-    {
-        $this->nrPages = $nrPages;
-        return $this;
-    }
-
-    /**
-     * Get nrPages
-     *
-     * @return integer $nrPages
-     */
-    public function getNrPages()
-    {
-        return $this->nrPages;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return $this
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string $title
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Get id
-     *
-     * @return id $id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set id
-     *
-     * @param int $id
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
+    protected $author;
 }

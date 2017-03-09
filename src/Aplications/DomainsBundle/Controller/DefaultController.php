@@ -18,13 +18,19 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $serializer = $this->container->get('jms_serializer');
-        $jsonContent = $serializer->serialize($_POST, 'json');
 
-        $object = $serializer->deserialize($jsonContent, 'Aplications\DomainsBundle\Document\AbstractProduct', 'json');
+        $object = $serializer->deserialize($GLOBALS['HTTP_RAW_POST_DATA'], 'Aplications\DomainsBundle\Document\AbstractProduct', 'json');
 
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $dm->persist($object);
-        $dm->flush();
+       /// $dm = $this->get('doctrine_mongodb')->getManager();
+       // $dm->persist($object);
+      //  $dm->flush();
+
+      //  $dm->getRepository('AplicationsDomainsBundle:Book');
+
+        $repository = $this->get('doctrine_mongodb')->getManager()
+            ->getRepository('AplicationsDomainsBundle:Book');
+
+        $books = $repository->findAll();
 
 
         return $this->render('AplicationsDomainsBundle:Default:index.html.twig');
