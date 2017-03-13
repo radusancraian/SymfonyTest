@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation as JMS;
  * @JMS\Discriminator(field="type", map = {"book" : "Aplications\DomainsBundle\Document\Book", "computer" : "Aplications\DomainsBundle\Document\Computer"})
  * @package Aplications\DomainsBundle\Document
  */
- class AbstractProduct
+ abstract class AbstractProduct
 {
     /**
      * @MongoDB\Id

@@ -5,6 +5,7 @@ namespace Aplications\DomainsBundle\Controller;
 use Aplications\DomainsBundle\Document\Computer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Aplications\DomainsBundle\Document\Product;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class DefaultController
@@ -13,22 +14,22 @@ use Aplications\DomainsBundle\Document\Product;
 class DefaultController extends Controller
 {
     /**
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $serializer = $this->container->get('jms_serializer');
 
-        $object = $serializer->deserialize($GLOBALS['HTTP_RAW_POST_DATA'], 'Aplications\DomainsBundle\Document\AbstractProduct', 'json');
+        $object = $serializer->deserialize($request->getContent(), 'Aplications\DomainsBundle\Document\AbstractProduct', 'json');
 
-       /// $dm = $this->get('doctrine_mongodb')->getManager();
-       // $dm->persist($object);
-      //  $dm->flush();
+       $dm = $this->get('doctrine_mongodb')->getManager();
+        $dm->persist($object);
+        $dm->flush();
 
-      //  $dm->getRepository('AplicationsDomainsBundle:Book');
+       $dm->getRepository('AplicationsDomainsBundle:Book');
 
-        $repository = $this->get('doctrine_mongodb')->getManager()
-            ->getRepository('AplicationsDomainsBundle:Book');
+        $repository = $dm->getRepository('AplicationsDomainsBundle:Book');
 
         $books = $repository->findAll();
 

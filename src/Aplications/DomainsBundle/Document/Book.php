@@ -1,6 +1,7 @@
 <?php
 
 namespace Aplications\DomainsBundle\Document;
+use Aplications\DomainsBundle\Document\BookDetails\Author;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as JMS;
 
@@ -12,12 +13,17 @@ use JMS\Serializer\Annotation as JMS;
 class Book extends AbstractProduct
 {
     /**
+     * @var integer
+     *
      * @JMS\Type("integer")
      * @MongoDB\Integer
+     * @JMS\SerializedName("abc")
      */
     protected $price;
 
     /**
+     * @var integer
+     *
      * @JMS\Type("integer")
      * @MongoDB\Integer
      */
@@ -31,8 +37,18 @@ class Book extends AbstractProduct
 
 
     /**
-     * @MongoDB\ReferenceOne(targetDocument="Aplications\DomainsBundle\Document\BookDetails\Author", cascade={"persist"})
+     * @var Author
+     *
      * @JMS\Type("Aplications\DomainsBundle\Document\BookDetails\Author")
+     * @MongoDB\EmbedOne(targetDocument="Aplications\DomainsBundle\Document\BookDetails\Author")
      */
     protected $author;
+
+    /**
+     * @var array
+     *
+     * @JMS\Type("array")
+     * @MongoDB\Collection
+     */
+    protected $documents = array();
 }
