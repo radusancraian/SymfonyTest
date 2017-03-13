@@ -13,6 +13,14 @@ use JMS\Serializer\Annotation as JMS;
 class Book extends AbstractProduct
 {
     /**
+     * @JMS\VirtualProperty
+     */
+    public function getObjectType()
+    {
+        return "book";
+    }
+
+    /**
      * @var integer
      *
      * @JMS\Type("integer")

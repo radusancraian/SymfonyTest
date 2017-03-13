@@ -38,4 +38,10 @@ use JMS\Serializer\Annotation as JMS;
     {
         return $this->id;
     }
+
+     /**
+      * @JMS\VirtualProperty
+      * @JMS\SerializedName("type")
+      */
+     abstract public function getObjectType();
 }

@@ -13,6 +13,14 @@ use JMS\Serializer\Annotation as JMS;
 class Computer extends AbstractProduct
 {
     /**
+     * @JMS\VirtualProperty
+     */
+    public function getObjectType()
+    {
+        return "computer";
+    }
+
+    /**
      * @JMS\Type("int")
      * @MongoDB\Int
      */
